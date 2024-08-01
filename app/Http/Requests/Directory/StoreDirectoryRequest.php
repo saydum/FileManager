@@ -24,7 +24,7 @@ class StoreDirectoryRequest extends FormRequest
         return [
             'name' => 'required|string|max:550',
             'path' => 'required|string|unique:directories|max:550',
-            'user_id' => 'required|integer|exists:users.id'
+            'user_id' => 'required|integer|exists:users,id'
         ];
     }
 }
