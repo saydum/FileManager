@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DirectoryController;
+use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,6 @@ require __DIR__.'/auth.php';
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/directories', [DirectoryController::class, 'store'])->name('directories.store');
     Route::delete('/directories/{directory}', [DirectoryController::class, 'destroy'])->name('directories.delete');
+
+    Route::post('/directories/{directory}/files', [FileController::class, 'upload'])->name('files.upload');
 });
