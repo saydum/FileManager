@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Contracts\FileUploadServiceInterface;
+use App\Http\Contracts\FileServiceInterface;
 use App\Models\Directory;
 use App\Models\File;
+use Illuminate\Support\Facades\Storage;
 
-class FileService implements FileUploadServiceInterface
+class FileService implements FileServiceInterface
 {
 
     /**
@@ -26,6 +27,7 @@ class FileService implements FileUploadServiceInterface
             $uniqueName = uniqid() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs($directory->path . '/', $uniqueName);
 
+            // @TODO Это часть смотрится не красиво
             $fileModel = File::create([
                 'name' => $uniqueName,
                 'path' => $path,
@@ -33,8 +35,33 @@ class FileService implements FileUploadServiceInterface
                 'user_id' => $userId,
                 'is_public' => true,
             ]);
-                $fileModels[] = $fileModel;
+            $fileModels[] = $fileModel;
         }
         return $fileModels;
+    }
+
+    #[\Override]
+    public function rename(int $fileId, string $newName): bool
+    {
+        $file = File::find($fileId);
+
+        if (!$file) {
+            return false;
+        }
+
+        $oldPath = $file->path;
+        $directoryPath = dirname($oldPath);
+        $newPath = $directoryPath . '/' . $newName;
+
+        // Переименование файла на диске
+        if (Storage::disk('local')->exists($oldPath)) {
+            Storage::disk('local')->move($oldPath, $newPath);
+        }
+
+        $file->name = $newName;
+        $file->path = $newPath;
+        $file->save();
+
+        return true;
     }
 }
