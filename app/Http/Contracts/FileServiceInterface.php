@@ -14,4 +14,8 @@ interface FileServiceInterface
     public function delete(File $file): bool;
 
     public function getFileInfo(File $file): array;
+
+    public function hideFile(File $file): bool;
+
+    public function showFile(File $file): bool;
 }

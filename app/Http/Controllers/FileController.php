@@ -78,4 +78,38 @@ class FileController extends Controller
 
         return response()->json($fileInfo);
     }
+
+    public function hiddenFile(Request $request, int $fileId)
+    {
+        $file = File::find($fileId);
+
+        if (!$file) {
+            return response()->json(['message' => 'Файл не найден.'], 404);
+        }
+
+        $success = $this->fileService->hideFile($file);
+
+        if ($success) {
+            return response()->json(['message' => 'Файл успешно скрыт.']);
+        } else {
+            return response()->json(['message' => 'Ошибка при скрытии файла.'], 500);
+        }
+    }
+
+    public function showFile(Request $request, int $fileId)
+    {
+        $file = File::find($fileId);
+
+        if (!$file) {
+            return response()->json(['message' => 'Файл не найден.'], 404);
+        }
+
+        $success = $this->fileService->showFile($file);
+
+        if ($success) {
+            return response()->json(['message' => 'Файл успешно показан.']);
+        } else {
+            return response()->json(['message' => 'Ошибка при показе файла.'], 500);
+        }
+    }
 }

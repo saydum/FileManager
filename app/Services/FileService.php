@@ -80,6 +80,20 @@ class FileService implements FileServiceInterface
         ];
     }
 
+    #[\Override]
+    public function hideFile(File $file): bool
+    {
+        $file->is_public = false;
+        return $file->save();
+    }
+
+    #[\Override]
+    public function showFile(File $file): bool
+    {
+        $file->is_public = true;
+        return $file->save();
+    }
+
     private function formatSize(int $bytes): string
     {
         $sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];

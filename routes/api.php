@@ -20,4 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/files/{file}', [FileController::class, 'rename'])->name('files.rename');
     Route::delete('/files/{file}', [FileController::class, 'delete'])->name('files.delete');
     Route::get('/files/{file}/info', [FileController::class, 'getFileInfo'])->name('files.info');
+    Route::post('files/{file}/hidden', [FileController::class, 'hiddenFile'])->name('files.hidden');
+    Route::post('files/{file}/show', [FileController::class, 'showFile'])->name('files.show');
 });
