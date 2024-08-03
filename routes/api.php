@@ -17,5 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/directories/{directory}', [DirectoryController::class, 'destroy'])->name('directories.delete');
 
     Route::post('/directories/{directory}/files', [FileController::class, 'upload'])->name('files.upload');
-    Route::put('/files/{file}/rename', [FileController::class, 'rename'])->name('files.rename');
+    Route::put('/files/{file}', [FileController::class, 'rename'])->name('files.rename');
+    Route::delete('/files/{file}', [FileController::class, 'delete'])->name('files.delete');
 });

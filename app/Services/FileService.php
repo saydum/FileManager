@@ -25,9 +25,8 @@ class FileService implements FileServiceInterface
 
         foreach ($files as $file) {
             $uniqueName = uniqid() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs($directory->path . '/', $uniqueName);
+            $path = $file->storeAs($directory->path, $uniqueName);
 
-            // @TODO Это часть смотрится не красиво
             $fileModel = File::create([
                 'name' => $uniqueName,
                 'path' => $path,
@@ -63,5 +62,14 @@ class FileService implements FileServiceInterface
         $file->save();
 
         return true;
+    }
+
+    #[\Override]
+    public function delete(File $file): bool
+    {
+        if (Storage::disk('local')->exists($file->path)) {
+            Storage::disk('local')->delete($file->path);
+        }
+        return $file->delete();
     }
 }

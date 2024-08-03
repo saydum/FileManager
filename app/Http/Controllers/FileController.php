@@ -54,4 +54,19 @@ class FileController extends Controller
             ], 400);
         }
     }
+
+    public function delete(File $file)
+    {
+        if (!$file) {
+            return response()->json(['message' => 'Файл не найден.'], 404);
+        }
+
+        $success = $this->fileService->delete($file);
+
+        if ($success) {
+            return response()->json(['message' => 'Файл успешно удален.']);
+        } else {
+            return response()->json(['message' => 'Ошибка при удалении файла.'], 500);
+        }
+    }
 }
