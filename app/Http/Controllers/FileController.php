@@ -41,7 +41,7 @@ class FileController extends Controller
             ], 400);
         }
 
-        $success = $this->fileService->rename($file->id, $newName);
+        $success = $this->fileService->rename($file, $newName);
 
         if ($success) {
             return response()->json([

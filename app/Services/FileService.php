@@ -40,13 +40,9 @@ class FileService implements FileServiceInterface
     }
 
     #[\Override]
-    public function rename(int $fileId, string $newName): bool
+    public function rename(File $file, string $newName): bool
     {
-        $file = File::find($fileId);
-
-        if (!$file) {
-            return false;
-        }
+        if (!$file) return false;
 
         $oldPath = $file->path;
         $directoryPath = dirname($oldPath);

@@ -9,7 +9,7 @@ interface FileServiceInterface
 {
     public function upload(array $files, Directory $directory, int $userId): array;
 
-    public function rename(int $fileId, string $newName): bool;
+    public function rename(File $file, string $newName): bool;
 
     public function delete(File $file): bool;
 }
