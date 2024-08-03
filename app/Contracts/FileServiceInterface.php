@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Contracts;
+namespace app\Contracts;
 
 use App\Models\Directory;
 use App\Models\File;

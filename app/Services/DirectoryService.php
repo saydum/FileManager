@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use Log;
-use Storage;
 use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class DirectoryService
 {

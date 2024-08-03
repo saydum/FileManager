@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Contracts\FileServiceInterface;
+use app\Contracts\FileServiceInterface;
 use App\Models\Directory;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;

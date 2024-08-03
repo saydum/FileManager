@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Http\Contracts\FileServiceInterface;
+use app\Contracts\FileServiceInterface;
 use App\Services\FileService;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
