@@ -69,4 +69,13 @@ class FileController extends Controller
             return response()->json(['message' => 'Ошибка при удалении файла.'], 500);
         }
     }
+
+    public function getFileInfo(File $file)
+    {
+        if (!$file) return response()->json(['message' => 'Файл не найден.'], 404);
+
+        $fileInfo = $this->fileService->getFileInfo($file);
+
+        return response()->json($fileInfo);
+    }
 }

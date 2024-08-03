@@ -68,4 +68,22 @@ class FileService implements FileServiceInterface
         }
         return $file->delete();
     }
+
+    #[\Override]
+    public function getFileInfo(File $file): array
+    {
+        return [
+            'name' => $file->name,
+            'path' => $file->path,
+            'size' => $this->formatSize(Storage::disk('local')->size($file->path)),
+            'uploaded_date' => $file->created_at,
+        ];
+    }
+
+    private function formatSize(int $bytes): string
+    {
+        $sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
+        $factor = floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.2f %s", $bytes / pow(1024, $factor), $sizes[$factor]);
+    }
 }

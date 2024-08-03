@@ -12,4 +12,6 @@ interface FileServiceInterface
     public function rename(File $file, string $newName): bool;
 
     public function delete(File $file): bool;
+
+    public function getFileInfo(File $file): array;
 }
