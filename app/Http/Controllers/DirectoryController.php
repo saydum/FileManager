@@ -8,8 +8,6 @@ use App\Services\DirectoryService;
 
 class DirectoryController extends Controller
 {
-    private const string ROOT_DIR_NAME = 'directories/';
-
     public function __construct(
         public DirectoryService $directoryService,
     )
@@ -18,18 +16,18 @@ class DirectoryController extends Controller
     {
         $directory = Directory::create([
             'name' => $request->name,
-            'path' => $request->path,
+            'path' => $request->path ,
             'user_id' => $request->user()->id,
         ]);
 
-        $this->directoryService->mkdir(self::ROOT_DIR_NAME, $request->name);
+        $this->directoryService->mkdir($request->name);
 
         return response()->json($directory, 201);
     }
 
     public function destroy(Directory $directory)
     {
-        $this->directoryService->remove(self::ROOT_DIR_NAME, $directory->name);
+        $this->directoryService->remove($directory->name);
         $directory->delete();
 
         return response()->json(

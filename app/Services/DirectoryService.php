@@ -8,13 +8,11 @@ use Exception;
 
 class DirectoryService
 {
-    public function mkdir(string $root, string $dirname): void
+    public function mkdir(string $dirname): void
     {
-        $fullDirName = $root . $dirname;
-
         try {
-            if (!Storage::exists($fullDirName)) {
-                Storage::makeDirectory($fullDirName);
+            if (!Storage::exists($dirname)) {
+                Storage::makeDirectory($dirname);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -22,13 +20,11 @@ class DirectoryService
         }
     }
 
-    public function remove(string $root, string $dirname)
+    public function remove(string $dirname)
     {
-        $fullDirName = $root . $dirname;
-
         try {
-            if (Storage::exists($fullDirName)) {
-                Storage::deleteDirectory($fullDirName);
+            if (Storage::exists($dirname)) {
+                Storage::deleteDirectory($dirname);
             }
         } catch (Exception $e) {
             Log::error($e->getMessage());
