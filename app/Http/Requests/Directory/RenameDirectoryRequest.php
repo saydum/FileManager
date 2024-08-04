@@ -4,7 +4,7 @@ namespace App\Http\Requests\Directory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDirectoryRequest extends FormRequest
+class RenameDirectoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
