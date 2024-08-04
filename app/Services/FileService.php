@@ -54,7 +54,9 @@ class FileService implements FileServiceInterface
             Storage::disk('local')->move($oldPath, $newPath);
         }
 
-        $file->name = $newName;
+        $newFileName = pathinfo($newName, PATHINFO_FILENAME);
+        $extensionFile = pathinfo($file->name, PATHINFO_EXTENSION);
+        $file->name = $newFileName .'.'. $extensionFile;
         $file->path = $newPath;
         $file->save();
 
