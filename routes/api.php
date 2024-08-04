@@ -26,5 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('files/{file}/hidden', [FileController::class, 'hiddenFile'])->name('files.hidden');
     Route::post('files/{file}/show', [FileController::class, 'showFile'])->name('files.show');
 
+    Route::get('/files/{file}/generate-token', [FileController::class, 'generateDownloadToken'])->name('files.generate.token');
     Route::get('/disk-usage', [DiskUsageController::class, 'index'])->name('disk.usage');
 });
+
+Route::get('/files/download/{token}', [FileController::class, 'downloadFile'])->name('files.download');
+

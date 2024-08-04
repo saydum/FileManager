@@ -18,6 +18,7 @@ class File extends Model
         'directory_id',
         'user_id',
         'is_public',
+        'download_token'
     ];
 
     public function user(): BelongsTo

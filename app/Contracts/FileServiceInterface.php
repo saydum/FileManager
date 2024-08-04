@@ -18,4 +18,6 @@ interface FileServiceInterface
     public function hideFile(File $file): bool;
 
     public function showFile(File $file): bool;
+
+    public function generateDownloadToken(File $file): string;
 }

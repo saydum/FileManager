@@ -6,6 +6,7 @@ use app\Contracts\FileServiceInterface;
 use App\Models\Directory;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FileService implements FileServiceInterface
 {
@@ -99,5 +100,17 @@ class FileService implements FileServiceInterface
         $sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
         $factor = floor((strlen($bytes) - 1) / 3);
         return sprintf("%.2f %s", $bytes / pow(1024, $factor), $sizes[$factor]);
+    }
+
+    #[\Override]
+    public function generateDownloadToken(File $file): string
+    {
+        $token = uniqid(Str::random(32));
+
+        $file->update([
+            'download_token' => $token
+        ]);
+
+        return $token;
     }
 }

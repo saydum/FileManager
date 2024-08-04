@@ -6,13 +6,16 @@ use app\Contracts\FileServiceInterface;
 use App\Models\Directory;
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class FileController extends Controller
+class   FileController extends Controller
 {
     public function __construct(
         public FileServiceInterface $fileService
     )
-    {}
+    {
+    }
 
     public function upload(Request $request, Directory $directory)
     {
@@ -111,5 +114,33 @@ class FileController extends Controller
         } else {
             return response()->json(['message' => 'Ошибка при показе файла.'], 500);
         }
+    }
+
+    public function generateDownloadToken(File $file)
+    {
+        $token = $this->fileService->generateDownloadToken($file);
+
+        return response()->json([
+            'message' => 'Токен для скачивания успешно создан.',
+            'url' => "http://localhost/api/files/download/{$token}"
+        ], 201);
+    }
+
+    public function downloadFile($token)
+    {
+        $file = File::where('download_token', $token)->firstOrFail();
+
+        if (!Storage::exists($file->path)) {
+            return response()->json(['message' => 'Файл не найден.'], 404);
+        }
+
+        return new StreamedResponse(function () use ($file) {
+            $stream = Storage::readStream($file->path);
+            fpassthru($stream);
+        }, 200, [
+            'Content-Type' => Storage::mimeType($file->path),
+            'Content-Length' => Storage::size($file->path),
+            'Content-Disposition' => 'attachment; filename="' . basename($file->path) . '"',
+        ]);
     }
 }
