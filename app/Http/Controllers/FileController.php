@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class   FileController extends Controller
+class FileController extends Controller
 {
     public function __construct(
         public FileServiceInterface $fileService
@@ -58,7 +58,7 @@ class   FileController extends Controller
         }
     }
 
-    public function delete(File $file)
+    public function destroy(File $file)
     {
         if (!$file) {
             return response()->json(['message' => 'Файл не найден.'], 404);
