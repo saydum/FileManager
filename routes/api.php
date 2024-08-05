@@ -17,11 +17,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/directories', [DirectoryController::class, 'store'])->name('directories.store');
     Route::put('directories/{directory}/rename', [DirectoryController::class, 'rename'])->name('directories.rename');
-    Route::delete('/directories/{directory}', [DirectoryController::class, 'destroy'])->name('directories.delete');
+    Route::delete('/directories/{directory}', [DirectoryController::class, 'destroy'])->name('directories.destroy');
 
     Route::post('/directories/{directory}/files', [FileController::class, 'upload'])->name('files.upload');
     Route::put('/files/{file}', [FileController::class, 'rename'])->name('files.rename');
-    Route::delete('/files/{file}', [FileController::class, 'delete'])->name('files.delete');
+    Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.delete');
     Route::get('/files/{file}/info', [FileController::class, 'getFileInfo'])->name('files.info');
     Route::post('files/{file}/hidden', [FileController::class, 'hiddenFile'])->name('files.hidden');
     Route::post('files/{file}/show', [FileController::class, 'showFile'])->name('files.show');
