@@ -23,8 +23,13 @@ class RenameDirectoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:550',
-            'path' => 'required|string|unique:directories|max:550',
-            'user_id' => 'required|integer|exists:users,id'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Поле имя обязательно для заполнения.',
         ];
     }
 }

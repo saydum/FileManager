@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DirectoryController;
+use App\Http\Controllers\Api\V1\DirectoryController;
 use App\Http\Controllers\DiskUsageController;
 use App\Http\Controllers\FileController;
 use Illuminate\Http\Request;
@@ -16,10 +16,11 @@ require __DIR__.'/auth.php';
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/directories', [DirectoryController::class, 'store'])->name('directories.store');
-    Route::put('directories/{directory}/rename', [DirectoryController::class, 'rename'])->name('directories.rename');
+    Route::put('directories/{directory}', [DirectoryController::class, 'rename'])->name('directories.rename');
     Route::delete('/directories/{directory}', [DirectoryController::class, 'destroy'])->name('directories.destroy');
 
     Route::post('/directories/{directory}/files', [FileController::class, 'upload'])->name('files.upload');
+
     Route::put('/files/{file}', [FileController::class, 'rename'])->name('files.rename');
     Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.delete');
     Route::get('/files/{file}/info', [FileController::class, 'getFileInfo'])->name('files.info');

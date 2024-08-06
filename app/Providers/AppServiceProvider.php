@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use app\Contracts\FileServiceInterface;
-use App\Services\FileService;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +12,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(FileServiceInterface::class, FileService::class);
     }
 
     /**
