@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use app\Contracts\FileServiceInterface;
 use App\Models\Directory;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class FileService implements FileServiceInterface
+class FileService
 {
 
     /**
@@ -19,7 +18,6 @@ class FileService implements FileServiceInterface
      * @param int $userId
      * @return array
      */
-    #[\Override]
     public function upload(array $files, Directory $directory, int $userId): array
     {
         $fileModels = [];
@@ -40,7 +38,6 @@ class FileService implements FileServiceInterface
         return $fileModels;
     }
 
-    #[\Override]
     public function rename(File $file, string $newName): bool
     {
         if (!$file) return false;
@@ -63,7 +60,6 @@ class FileService implements FileServiceInterface
         return true;
     }
 
-    #[\Override]
     public function delete(File $file): bool
     {
         if (Storage::disk('local')->exists($file->path)) {
@@ -72,7 +68,6 @@ class FileService implements FileServiceInterface
         return $file->delete();
     }
 
-    #[\Override]
     public function getFileInfo(File $file): array
     {
         return [
@@ -83,14 +78,12 @@ class FileService implements FileServiceInterface
         ];
     }
 
-    #[\Override]
     public function hideFile(File $file): bool
     {
         $file->is_public = false;
         return $file->save();
     }
 
-    #[\Override]
     public function showFile(File $file): bool
     {
         $file->is_public = true;
@@ -104,7 +97,6 @@ class FileService implements FileServiceInterface
         return sprintf("%.2f %s", $bytes / pow(1024, $factor), $sizes[$factor]);
     }
 
-    #[\Override]
     public function generateDownloadToken(File $file): string
     {
         $token = uniqid(Str::random(32));

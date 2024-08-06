@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\V1\DirectoryController;
-use App\Http\Controllers\DiskUsageController;
-use App\Http\Controllers\FileController;
+use App\Http\Controllers\Api\V1\DiskUsageController;
+use App\Http\Controllers\Api\V1\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

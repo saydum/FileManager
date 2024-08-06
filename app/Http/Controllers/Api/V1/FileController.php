@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use app\Contracts\FileServiceInterface;
+use App\Http\Controllers\Controller;
 use App\Models\Directory;
 use App\Models\File;
+use App\Services\FileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class FileController extends Controller
 {
     public function __construct(
-        public FileServiceInterface $fileService
+        public FileService $fileService
     )
     {
     }

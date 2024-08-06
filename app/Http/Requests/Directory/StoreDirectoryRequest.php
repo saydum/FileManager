@@ -27,4 +27,13 @@ class StoreDirectoryRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Поле имя обязательно для заполнения.',
+            'path.required' => 'Поле путь обязательно для заполнения.',
+            'path.unique' => 'Данный путь уже существует.',
+        ];
+    }
 }
